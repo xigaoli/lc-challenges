@@ -1,0 +1,27 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        #define a dict to do this
+        maxlen = 0
+
+        charset={}
+        i=0
+        startindex=0
+        while True:
+            if(i>=len(s)):
+                break
+            char = s[i]
+            offendpos=charset.get(char,-1)
+            if(offendpos>=startindex):#repeat, end here
+                curr_len = i-startindex
+                if(curr_len>maxlen):
+                    maxlen=curr_len
+                startindex=offendpos+1     #search from offendpos again
+
+            charset[char]=i
+            i+=1
+
+
+        lastlen = len(s)-startindex
+        if(lastlen>maxlen):
+            maxlen=lastlen
+        return maxlen
